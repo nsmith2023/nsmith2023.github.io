@@ -11,12 +11,24 @@ var imageWidth = 85, imageHeight = 150;
 var x = 25;
 var y = 25;
 
+document.addEventListener("keydown", handleKeyDown);
+
+var value = localStorage.getItem( "score" );
+
+if( value == undefined ) {
+localStorage.setItem( "score", 0);
+}
+
 setInterval( animate, 33 );
 
 function animate() {
   	clearBackground();
   	drawSprite();
+
+    value = localStorage.getItem("score" );
+    document.getElementById("demo").innerHTML = "Points: " + value;
 }
+
 
 function clearBackground() {
   ctx.fillStyle = "white";
@@ -30,4 +42,15 @@ ctx.drawImage( spriteSheet,
 
   currImage++;
   currImage %= numbImages;
+}
+
+
+function handleKeyDown(evt){
+  if(evt.key=='a'){
+    localStorage.setItem( "score", parseInt(value)+ 1);
+  }
+  else if(evt.key=='s'){
+    localStorage.setItem( "score", parseInt(value)-1);
+  }
+
 }
