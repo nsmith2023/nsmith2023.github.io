@@ -9,7 +9,7 @@ var currImage = 0;
 var imageWidth = 85, imageHeight = 150;
 
 var x = 25;
-var y = 25;
+var y = 300;
 
 document.addEventListener("keydown", handleKeyDown);
 
@@ -22,11 +22,19 @@ localStorage.setItem( "score", 0);
 setInterval( animate, 33 );
 
 function animate() {
+  canvas.width=window. innerWidth;
+  canvas.height=window. innerHeight-50;
+
+  value = localStorage.getItem("score" );
+  document.getElementById("demo").innerHTML = "Points: " + value;
+  ctx.fillText("Points: "+ value, 10, 50);
+
+
   	clearBackground();
   	drawSprite();
 
-    value = localStorage.getItem("score" );
-    document.getElementById("demo").innerHTML = "Points: " + value;
+
+
 }
 
 
@@ -42,14 +50,16 @@ ctx.drawImage( spriteSheet,
 
   currImage++;
   currImage %= numbImages;
+
+  x=Math.abs(5*localStorage.getItem("score" )%(window.innerWidth));
 }
 
 
 function handleKeyDown(evt){
-  if(evt.key=='a'){
+  if(evt.key=='s'){
     localStorage.setItem( "score", parseInt(value)+ 1);
   }
-  else if(evt.key=='s'){
+  else if(evt.key=='a'){
     localStorage.setItem( "score", parseInt(value)-1);
   }
 
