@@ -1,6 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-//ctx.font = "50px serif";
+
 
 var score = localStorage.getItem( "score" );
 
@@ -9,12 +9,19 @@ localStorage.setItem( "score", 0);
 }
 
 
-var state = 0;
 var state = localStorage.getItem( "state" );
 
 if( state == undefined ) {
 localStorage.setItem( "state", 0);
 }
+
+localStorage.setItem("state",0);
+
+canvas.addEventListener("click", function(event){
+  alert(state);
+  newState=parseInt(state)+1;
+  localStorage.setItem( "state",newState%4 );
+});
 
 
 setInterval( loop, 33 );
@@ -27,14 +34,11 @@ function loop() {
   canvas.height=window.innerHeight;
 
   score = localStorage.getItem("score" );
-  ctx.fillText("Points: "+score, 50, 50);
 
   state = localStorage.getItem("state" );
 
   //console.log(state);
-
-
-    checkState();
+  checkState();
 
 }
 
@@ -69,6 +73,22 @@ function checkState(){
 
 
 function stateZero(){
+  var rectWidth = window.innerWidth/5;
+  var rectHeight = window.innerHeight/5;
+
+  ctx.font = "30px Arial";
+  var scoreText="Points: "+score;
+
+  ctx.fillText(scoreText, window.innerWidth/2-(ctx.measureText(scoreText).width)/2, window.innerHeight/2);
+
+  ctx.fillStyle = "lightblue"
+  ctx.fillRect(window.innerWidth/4-rectWidth/2, window.innerHeight/4-rectHeight/2,rectWidth,rectHeight)
+
+  ctx.fillRect(2*window.innerWidth/4-rectWidth/2, window.innerHeight/4-rectHeight/2,rectWidth,rectHeight)
+
+  ctx.fillRect(3*window.innerWidth/4-rectWidth/2, window.innerHeight/4-rectHeight/2,rectWidth,rectHeight)
+
+
 
 }
 
