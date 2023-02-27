@@ -18,12 +18,18 @@ if( state == undefined ) {
 localStorage.setItem( "state", 0);
 }
 
-//localStorage.setItem("state",0);
+
 
 canvas.addEventListener("click", function(){
+  /*
   alert(state);
   newState=parseInt(state)+1;
   localStorage.setItem( "state",newState%4 );
+*/
+  if(state==1){
+    myHand.push(unassigned[1]);
+    unassigned.splice(0,1);
+  }
 
 });
 
@@ -38,6 +44,7 @@ window.addEventListener("resize", function(){
 
 const dealerHand = [""];
 const myHand = [""];
+const unassigned=[""];
 
 class Card{
 
@@ -96,7 +103,17 @@ class Card{
 
     }else if(this.cardPositionX/this.cardWidth == 0){
 
-      return 11;
+      return 0;
+
+    }
+
+  }
+
+  isAce(){
+
+    if(this.cardPositionX/this.cardWidth == 0){
+
+      return true;
 
     }
 
@@ -118,11 +135,24 @@ var card4 = new Card();
 myHand.push(card4);
 
 var card5 = new Card();
+unassigned.push(card5);
+
 var card6 = new Card();
+unassigned.push(card6);
+
 var card7 = new Card();
+unassigned.push(card7);
+
 var card8 = new Card();
+unassigned.push(card8);
+
 var card9 = new Card();
+unassigned.push(card9);
+
 var card10 = new Card();
+unassigned.push(card10);
+
+
 
 
 setInterval( loop, 33 );
@@ -199,14 +229,23 @@ function stateOne(){
     ctx.fillStyle = "#ead1dc";
     ctx.fillRect(1*window.innerWidth/4-buttonWidth/2,2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
     ctx.fillRect(3*window.innerWidth/4-buttonWidth/2, 2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
-    //ctx.fillRect(2*window.innerWidth/4-buttonWidth/2,1* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
-    //ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 3* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
 
+
+//draw dealer cards
     card1.drawBackside(window.innerWidth/2-card1.cardWidth, window.innerHeight/4);
-    card2.drawCard(window.innerWidth/2, window.innerHeight/4);
+    for(let i = 2; i < dealerHand.length; i++){
 
-    card3.drawCard(window.innerWidth/2-card1.cardWidth, 3*window.innerHeight/4);
-    card4.drawCard(window.innerWidth/2, 3*window.innerHeight/4);
+      dealerHand[i].drawCard(window.innerWidth/2 + (i-2)*card1.cardWidth, window.innerHeight/4)
+
+    }
+
+  //loop through your cards
+    for(let p = 1; p < myHand.length; p++){
+
+      myHand[p].drawCard(window.innerWidth/2-card1.cardWidth+(p-1)*card1.cardWidth, 3*window.innerHeight/4)
+
+    }
+
 
     var dealerTotal =tallyCards(dealerHand);
     var myTotal =tallyCards(myHand);
@@ -219,6 +258,8 @@ function stateOne(){
 
     var creditText="Credits: "+credit;
     ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
+
+    dealerMove(dealerTotal);
 
 }
 
@@ -267,15 +308,26 @@ function drawAnimatedSprite(spriteSheet, numbImages, imageWidth, imageHeight, x,
 
 
 function tallyCards(hand){
-
   var value = 0;
 
   for(let j = 1; j < hand.length; j++){
 
     value += hand[j].getValue();
 
+    if(hand[j].isAce()){
+
+    }
+
   }
 
   return value;
 
+}
+
+
+function dealerMove(dealerTotal){
+  if(dealerTotal<17){
+    dealerHand.push(unassigned[1]);
+    unassigned.splice(0,1);
+  }
 }
