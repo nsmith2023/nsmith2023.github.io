@@ -1,13 +1,14 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+ctx.moveTo(0,0);
 
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-var score = localStorage.getItem( "score" );
+var credit = localStorage.getItem( "credit" );
 
-if( score == undefined ) {
-localStorage.setItem( "score", 0);
+if( credit == undefined ) {
+localStorage.setItem( "credit", 0);
 }
 
 
@@ -131,7 +132,7 @@ function loop() {
 
   clearBackground();
 
-  score = localStorage.getItem("score" );
+  credit = localStorage.getItem("credit" );
 
   state = localStorage.getItem("state" );
 
@@ -142,7 +143,7 @@ function loop() {
 
 
 function clearBackground() {
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "#38761d";
   ctx.fillRect( 0, 0, canvas.width, canvas.height);
 }
 
@@ -172,26 +173,34 @@ function checkState(){
 
 function stateZero(){
   var rectWidth = window.innerWidth/5;
-  var rectHeight = window.innerHeight/5;
+  var rectHeight = 0.5*window.innerWidth/5;
 
   ctx.fillStyle ="black";
   ctx.font = "30px Arial";
-  var scoreText="Points: "+score;
+  var creditText="Credits: "+credit;
 
-  ctx.fillText(scoreText, window.innerWidth/2-(ctx.measureText(scoreText).width)/2, window.innerHeight/2);
+  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
 
-  ctx.fillStyle = "lightblue";
-  ctx.fillRect(window.innerWidth/4-rectWidth/2, window.innerHeight/4-rectHeight/2,rectWidth,rectHeight);
+  ctx.fillStyle = "#ead1dc";
+  ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 1*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
 
-  ctx.fillRect(2*window.innerWidth/4-rectWidth/2, window.innerHeight/4-rectHeight/2,rectWidth,rectHeight);
+  ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 2.5*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
 
-  ctx.fillRect(3*window.innerWidth/4-rectWidth/2, window.innerHeight/4-rectHeight/2,rectWidth,rectHeight);
+  ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 4*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
 
 
 }
 
 
 function stateOne(){
+    var buttonWidth =  window.innerWidth/5;
+    var buttonHeight = 0.5*window.innerWidth/5;
+
+    ctx.fillStyle = "#ead1dc";
+    ctx.fillRect(1*window.innerWidth/4-buttonWidth/2,2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
+    ctx.fillRect(3*window.innerWidth/4-buttonWidth/2, 2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
+    //ctx.fillRect(2*window.innerWidth/4-buttonWidth/2,1* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
+    //ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 3* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
 
     card1.drawBackside(window.innerWidth/2-card1.cardWidth, window.innerHeight/4);
     card2.drawCard(window.innerWidth/2, window.innerHeight/4);
@@ -208,17 +217,30 @@ function stateOne(){
     ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, window.innerHeight/6);
     ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4*window.innerHeight/6);
 
+    var creditText="Credits: "+credit;
+    ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
 
 }
 
 
 function stateTwo(){
+  ctx.fillStyle ="black";
+  ctx.font = "30px Arial";
+  var creditText="Credits: "+credit;
+
+  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
+
+  localStorage.setItem("credit", 100);
 
 }
 
 
 function stateThree(){
+  ctx.fillStyle ="black";
+  ctx.font = "30px Arial";
+  var creditText="Credits: "+credit;
 
+  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
 }
 
 
