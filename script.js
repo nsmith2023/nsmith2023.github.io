@@ -193,12 +193,11 @@ function stateZero(){
 
 function stateOne(){
 
+    card1.drawBackside(window.innerWidth/2-card1.cardWidth, window.innerHeight/4);
+    card2.drawCard(window.innerWidth/2, window.innerHeight/4);
 
-    card1.drawBackside(window.innerWidth/10, window.innerHeight/4);
-    card2.drawCard(window.innerWidth/10+50, window.innerHeight/4);
-
-    card3.drawCard(window.innerWidth/10+200, window.innerHeight/4);
-    card4.drawCard(window.innerWidth/10+250, window.innerHeight/4);
+    card3.drawCard(window.innerWidth/2-card1.cardWidth, 3*window.innerHeight/4);
+    card4.drawCard(window.innerWidth/2, 3*window.innerHeight/4);
 
     var dealerTotal =tallyCards(dealerHand);
     var myTotal =tallyCards(myHand);
@@ -206,8 +205,8 @@ function stateOne(){
     ctx.fillStyle ="black";
     ctx.font = "30px Arial";
 
-    ctx.fillText(dealerTotal, window.innerWidth/10, window.innerHeight/5);
-    ctx.fillText(myTotal, window.innerWidth/10+200, window.innerHeight/5);
+    ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, window.innerHeight/6);
+    ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4*window.innerHeight/6);
 
 
 }
