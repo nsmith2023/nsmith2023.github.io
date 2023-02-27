@@ -33,6 +33,15 @@ canvas.addEventListener("click", function(){
 
 });
 
+canvas.addEventListener("dblclick", function(){
+
+  alert(state);
+  newState=parseInt(state)+1;
+  localStorage.setItem( "state",newState%4 );
+
+});
+
+
 
 window.addEventListener("resize", function(){
   //canvas size equals window size
