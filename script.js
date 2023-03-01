@@ -5,9 +5,6 @@ ctx.moveTo(0,0);
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-var blackjackBackgroud = new Image();
-blackjackBackgroud.src= "blackjackBackground.jpg";
-
 var blackjackTitle = new Image();
 blackjackTitle.src= "blackjackTitle.png";
 
@@ -63,10 +60,16 @@ class Card{
     this.cards = new Image();
     this.cards.src = "cards.png";
     this.cardNumberImages = 52;
-    this.cardWidth =51.5;
+    this.cardWidth =51.25;
     this.cardHeight =71.5;
     this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
     this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
+
+    if(window.innerWidth > window.innerHeight){
+      this.displayCardWidth = 1.5*this.cardWidth;
+    }else{
+      this.displayCardWidth= 2*this.cardWidth;
+    }
 
   for(let i = 0; i < dealerHand.length; i++){
 
@@ -91,14 +94,23 @@ class Card{
 
   drawCard(x,y){
 
-    ctx.drawImage( this.cards, this.cardPositionX , this.cardPositionY, this.cardWidth, this.cardHeight ,x,y, 1.5*this.cardWidth, 1.5*this.cardHeight );
+    if(window.innerWidth > window.innerHeight){
+      ctx.drawImage( this.cards, this.cardPositionX , this.cardPositionY, this.cardWidth, this.cardHeight ,x,y, 1.5*this.cardWidth, 1.5*this.cardHeight );
 
+    }else{
+      ctx.drawImage( this.cards, this.cardPositionX , this.cardPositionY, this.cardWidth, this.cardHeight ,x,y, 2*this.cardWidth, 2*this.cardHeight );
+
+    }
   }
 
   drawBackside(x,y){
+    if(window.innerWidth > window.innerHeight){
+      ctx.drawImage( this.cards, this.cardWidth*15 , 0 , this.cardWidth, this.cardHeight ,x,y, 1.5*this.cardWidth, 1.5*this.cardHeight );
 
-    ctx.drawImage( this.cards, this.cardWidth*15 , 0 , this.cardWidth, this.cardHeight ,x,y, 1.5*this.cardWidth, 1.5*this.cardHeight );
+    }else{
+      ctx.drawImage( this.cards, this.cardWidth*15 , 0 , this.cardWidth, this.cardHeight ,x,y, 2*this.cardWidth, 2*this.cardHeight );
 
+    }
   }
 
   getValue(){
@@ -234,7 +246,7 @@ function stateZero(){
   ctx.font = "30px Arial";
   var creditText="Credits: "+credit;
 
-  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
+  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.75*window.innerHeight/6);
 
   ctx.fillStyle = "#ead1dc";
   ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 1*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
@@ -264,15 +276,14 @@ function stateOne(){
 
       if(i==0){
       //edit to center cards
-      dealerHand[i].drawBackside(window.innerWidth/2-card1.cardWidth*1.5, window.innerHeight/4);
+      dealerHand[i].drawBackside(window.innerWidth/2-card1.displayCardWidth, window.innerHeight/4);
       //dealerHand[i].drawCard(window.innerWidth/2-card1.cardWidth*1.5, window.innerHeight/4);
-
 
 
       }else{
         //edit to center cards
 
-        dealerHand[i].drawCard(window.innerWidth/2 + (i-1)*card1.cardWidth*1.5, window.innerHeight/4);
+        dealerHand[i].drawCard(window.innerWidth/2 + (i-1)*card1.displayCardWidth, window.innerHeight/4);
 
       }
 
@@ -283,7 +294,8 @@ function stateOne(){
   //loop through your cards
     for(let p = 0; p < myHand.length; p++){
       //edit to center cards
-      myHand[p].drawCard(window.innerWidth/2-card1.cardWidth*1.5+(p)*card1.cardWidth*1.5, 3*window.innerHeight/4)
+
+      myHand[p].drawCard(window.innerWidth/2-card1.displayCardWidth+(p)*card1.displayCardWidth, 3*window.innerHeight/4)
 
       //myTotal+= myHand[i].getValue();
 
@@ -297,10 +309,10 @@ function stateOne(){
     ctx.font = "30px Arial";
 
     ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, 3*window.innerHeight/6);
-    ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4*window.innerHeight/6);
+    ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
     var creditText="Credits: "+credit;
-    ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
+    ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.75*window.innerHeight/6);
 
     dealerMove(dealerTotal);
 
@@ -313,7 +325,7 @@ function stateTwo(){
   ctx.font = "30px Arial";
   var creditText="Credits: "+credit;
 
-  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
+  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.75*window.innerHeight/6);
 
   localStorage.setItem("credit", 100);
 
@@ -325,7 +337,7 @@ function stateThree(){
   ctx.font = "30px Arial";
   var creditText="Credits: "+credit;
 
-  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.5*window.innerHeight/6);
+  ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.75*window.innerHeight/6);
 }
 
 
@@ -374,7 +386,6 @@ function tallyCards(hand){
   return value;
 
 }
-
 
 
 
