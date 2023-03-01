@@ -60,8 +60,8 @@ class Card{
     this.cards = new Image();
     this.cards.src = "cards.png";
     this.cardNumberImages = 52;
-    this.cardWidth =51.25;
-    this.cardHeight =71.5;
+    this.cardWidth =51.5;
+    this.cardHeight =71.75;
     this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
     this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
 
@@ -76,6 +76,7 @@ class Card{
     while(this.cardPositionX == dealerHand[i].cardPositionX){
 
       this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
+      this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
 
     }
 
@@ -83,8 +84,9 @@ class Card{
 
   for(let p = 0; p < myHand.length; p++){
 
-    while(this.cardPositionY == myHand[p].cardPositionY){
+    while(this.cardPositionX == myHand[p].cardPositionX){
 
+      this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
       this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
 
     }
@@ -209,7 +211,7 @@ function clearBackground() {
   //ctx.drawImage(blackjackBackgroud,0,0,window.innerWidth,window.innerHeight);
 
   if(state==1){
-    ctx.drawImage(blackjackTitle,window.innerWidth/2-200,window.innerHeight/10-100,400,250);
+    ctx.drawImage(blackjackTitle,window.innerWidth/2-225,window.innerHeight/10-100,450,250);
   }
 
 }
@@ -295,7 +297,7 @@ function stateOne(){
     for(let p = 0; p < myHand.length; p++){
       //edit to center cards
 
-      myHand[p].drawCard(window.innerWidth/2-card1.displayCardWidth+(p)*card1.displayCardWidth, 3*window.innerHeight/4)
+      myHand[p].drawCard(window.innerWidth/2+(p-1)*card1.displayCardWidth, 3*window.innerHeight/4)
 
       //myTotal+= myHand[i].getValue();
 
