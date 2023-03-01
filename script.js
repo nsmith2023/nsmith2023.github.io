@@ -73,7 +73,7 @@ class Card{
 
   for(let i = 0; i < dealerHand.length; i++){
 
-    while(this.cardPositionX == dealerHand[i].cardPositionX){
+    while(this.cardPositionX == dealerHand[i].cardPositionX && this.cardPositionY==dealerHand[i].cardPositionY){
 
       this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
       this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
@@ -84,7 +84,7 @@ class Card{
 
   for(let p = 0; p < myHand.length; p++){
 
-    while(this.cardPositionX == myHand[p].cardPositionX){
+    while(this.cardPositionX == myHand[p].cardPositionX && this.cardPositionY== myHand[p].cardPositionY){
 
       this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
       this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
