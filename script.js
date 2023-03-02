@@ -8,6 +8,10 @@
   var buttonWidth;
   var buttonHeight;
 
+  var frames=0;
+  var minBet=5;
+
+
   if(window.innerWidth > window.innerHeight){
     buttonWidth =  window.innerWidth/5;
     buttonHeight = 0.5*window.innerWidth/5;
@@ -68,12 +72,12 @@
       //myHand.push(unassigned[1]);
       //unassigned.splice(0,1);
 
-      if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 ){
+      if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<=21 ){
 
         myHand.push(unassigned[unassignedcount % unassigned.length]);
         unassignedcount++;
 
-      }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= 10 ){
+      }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= minBet ){
 
         for(let i = 0; i < allCards.length; i++){
 
@@ -84,7 +88,7 @@
           myHand.splice(2);
           dealerHand.splice(2);
 
-          localStorage.setItem("credit", parseInt(credit)-5);
+          localStorage.setItem("credit", parseInt(credit)-minBet);
 
         }
 
@@ -138,7 +142,7 @@
       this.cards = new Image();
       this.cards.src = "cards.png";
       this.cardNumberImages = 52;
-      this.cardWidth =51.5;
+      this.cardWidth =51.25;
       this.cardHeight =71.75;
       this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
       this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
@@ -285,13 +289,15 @@
   unassigned.push(card10);
   allCards.push(card10);
 
+  var homeCard = new Card();
+
 
 
   setInterval( loop, 33 );
 
 
   function loop() {
-
+    frames++;
     clearBackground();
 
     credit = localStorage.getItem("credit" );
@@ -351,6 +357,11 @@
 
     ctx.fillStyle = "#ead1dc";
     ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 1*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
+
+    homeCard.drawCard(window.innerWidth/2-homeCard.cardWidth/2, 1*window.innerHeight/6-homeCard.cardHeight/2);
+    if(frames%10==0){
+      homeCard.resetCard();
+    }
 
     ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 2.5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
