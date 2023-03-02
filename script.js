@@ -16,9 +16,8 @@
     buttonHeight = window.innerWidth/5;
   }
 
-
-
   var creditText;
+  var unassignedcount=0;
 
   var blackjackTitle = new Image();
   blackjackTitle.src= "blackjackTitle.png";
@@ -72,9 +71,9 @@
           allCards[i].resetCard(i);
 
           }
-          
-          myHand.splice(2,myHand.length-2);
-          dealerHand.splice(2,dealerHand.length-2);
+
+          myHand.splice(2);
+          dealerHand.splice(2);
 
         }
 
@@ -223,7 +222,6 @@
 
           }
         }
-
       }
 
     }
@@ -473,8 +471,9 @@
 
     if(dealerTotal<16){
 
-      dealerHand.push(unassigned[1]);
-      unassigned.splice(0,1);
+      dealerHand.push(unassigned[unassignedcount % unassigned.length]);
+      unassignedcount ++;
+
 
     }
 
