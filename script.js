@@ -5,6 +5,9 @@
     canvas.width=window.innerWidth;
     canvas.height=window.innerHeight;
 
+    var buttonWidth =  window.innerWidth/5;
+    var buttonHeight = 0.5*window.innerWidth/5;
+
     var blackjackTitle = new Image();
     blackjackTitle.src= "blackjackTitle.png";
 
@@ -26,9 +29,34 @@
 
     canvas.addEventListener("click", function(){
 
-      if(state==1){
-        myHand.push(unassigned[1]);
-        unassigned.splice(0,1);
+      if(state==0 && event.clientX > 2*window.innerWidth/4-buttonWidth/2 && event.clientX < 2*window.innerWidth/4+buttonWidth/2){
+
+        if(event.clientY > 1*window.innerHeight/6-buttonHeight/2 && event.clientY < 1*window.innerHeight/6+buttonHeight/2){
+          localStorage.setItem("state", 1)
+        }
+
+        else if(event.clientY > 2.5*window.innerHeight/6-buttonHeight/2 && event.clientY < 2.5*window.innerHeight/6+buttonHeight/2){
+          localStorage.setItem("state", 2)
+        }
+
+        else if(event.clientY > 4*window.innerHeight/6-buttonHeight/2 && event.clientY < 4*window.innerHeight/6+buttonHeight/2){
+          localStorage.setItem("state", 3)
+        }
+
+      }
+
+      else if(state==1){
+        //myHand.push(unassigned[1]);
+        //unassigned.splice(0,1);
+        localStorage.setItem("state", 0)
+      }
+      else if(state==2){
+
+        localStorage.setItem("state", 0)
+      }
+      else if(state==3){
+
+        localStorage.setItem("state", 0)
       }
 
     });
@@ -241,8 +269,6 @@
 
 
     function stateZero(){
-      var rectWidth = window.innerWidth/5;
-      var rectHeight = 0.5*window.innerWidth/5;
 
       ctx.fillStyle ="black";
       ctx.font = "30px Arial";
@@ -251,19 +277,17 @@
       ctx.fillText(creditText, window.innerWidth/2-(ctx.measureText(creditText).width)/2, 5.75*window.innerHeight/6);
 
       ctx.fillStyle = "#ead1dc";
-      ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 1*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
+      ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 1*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
-      ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 2.5*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
+      ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 2.5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
-      ctx.fillRect(2*window.innerWidth/4-rectWidth/2, 4*window.innerHeight/6-rectHeight/2,rectWidth,rectHeight);
+      ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 4*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
 
     }
 
 
     function stateOne(){
-        var buttonWidth =  window.innerWidth/5;
-        var buttonHeight = 0.5*window.innerWidth/5;
 
         ctx.fillStyle = "#ead1dc";
         ctx.fillRect(1*window.innerWidth/4-buttonWidth/2,2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
