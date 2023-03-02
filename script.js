@@ -22,6 +22,9 @@
   var blackjackTitle = new Image();
   blackjackTitle.src= "blackjackTitle.png";
 
+  var backButton = new Image();
+  backButton.src= "backButton.png";
+
 
   var credit = localStorage.getItem( "credit" );
 
@@ -310,16 +313,11 @@
     ctx.fillStyle = "#38761d";
     ctx.fillRect( 0, 0, canvas.width, canvas.height);
 
-    //ctx.drawImage(blackjackBackgroud,0,0,window.innerWidth,window.innerHeight);
-
-    if(state==1){
-      ctx.drawImage(blackjackTitle,window.innerWidth/2-225,window.innerHeight/10-100,450,250);
-    }
-
     if(state !=0){
-      //alert("works");
+
       ctx.fillStyle = "#ead1dc";
-      ctx.fillRect(0,0,buttonWidth/2,buttonHeight/2);
+      //ctx.fillRect(0,0,buttonWidth/2,buttonHeight/2);
+      ctx.drawImage(backButton,0,0,buttonWidth/2,buttonHeight/2);
     }
 
   }
@@ -367,6 +365,8 @@
       ctx.fillStyle = "#ead1dc";
       ctx.fillRect(1*window.innerWidth/4-buttonWidth/2,2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
       ctx.fillRect(3*window.innerWidth/4-buttonWidth/2, 2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
+
+      ctx.drawImage(blackjackTitle,window.innerWidth/2-225,window.innerHeight/10-100,450,250);
 
 
       //var dealerTotal =0;
