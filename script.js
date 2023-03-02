@@ -43,16 +43,21 @@
     if(state==0 && event.clientX > 2*window.innerWidth/4-buttonWidth/2 && event.clientX < 2*window.innerWidth/4+buttonWidth/2){
 
       if(event.clientY > 1*window.innerHeight/6-buttonHeight/2 && event.clientY < 1*window.innerHeight/6+buttonHeight/2){
-        localStorage.setItem("state", 1)
+        localStorage.setItem("state", 1);
       }
 
       else if(event.clientY > 2.5*window.innerHeight/6-buttonHeight/2 && event.clientY < 2.5*window.innerHeight/6+buttonHeight/2){
-        localStorage.setItem("state", 2)
+        localStorage.setItem("state", 2);
       }
 
       else if(event.clientY > 4*window.innerHeight/6-buttonHeight/2 && event.clientY < 4*window.innerHeight/6+buttonHeight/2){
-        localStorage.setItem("state", 3)
+        localStorage.setItem("state", 3);
       }
+
+    }
+
+    else if(state!=0 && event.clientX > 0 && event.clientX < buttonWidth/2 && event.clientY > 0 && event.clientY < buttonHeight/2 ){
+      localStorage.setItem("state", 0);
 
     }
 
@@ -64,7 +69,7 @@
 
         localStorage.setItem("state", 0)
 
-      }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 ){
+      }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= 10 ){
 
         for(let i = 0; i < allCards.length; i++){
 
@@ -75,18 +80,20 @@
           myHand.splice(2);
           dealerHand.splice(2);
 
+          localStorage.setItem("credit", parseInt(credit)-10);
+
         }
 
       }
 
     else if(state==2){
 
-      localStorage.setItem("state", 0)
+      localStorage.setItem("state", 0);
     }
 
     else if(state==3){
 
-      localStorage.setItem("state", 0)
+      localStorage.setItem("state", 0);
     }
 
   });
@@ -308,6 +315,12 @@
       ctx.drawImage(blackjackTitle,window.innerWidth/2-225,window.innerHeight/10-100,450,250);
     }
 
+    if(state !=0){
+      //alert("works");
+      ctx.fillStyle = "#ead1dc";
+      ctx.fillRect(0,0,buttonWidth/2,buttonHeight/2);
+    }
+
   }
 
 
@@ -353,6 +366,7 @@
       ctx.fillStyle = "#ead1dc";
       ctx.fillRect(1*window.innerWidth/4-buttonWidth/2,2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
       ctx.fillRect(3*window.innerWidth/4-buttonWidth/2, 2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
+
 
       //var dealerTotal =0;
       //var myTotal =0;
