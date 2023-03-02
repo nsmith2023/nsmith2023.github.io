@@ -67,7 +67,8 @@
 
       if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 ){
 
-        localStorage.setItem("state", 0)
+        myHand.push(unassigned[unassignedcount % unassigned.length]);
+        unassignedcount++;
 
       }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= 10 ){
 
@@ -80,7 +81,7 @@
           myHand.splice(2);
           dealerHand.splice(2);
 
-          localStorage.setItem("credit", parseInt(credit)-10);
+          localStorage.setItem("credit", parseInt(credit)-5);
 
         }
 
@@ -483,7 +484,7 @@
 
   function dealerMove(dealerTotal){
 
-    if(dealerTotal<16){
+    if(dealerTotal<16 && dealerHand.length<6){
 
       dealerHand.push(unassigned[unassignedcount % unassigned.length]);
       unassignedcount ++;
