@@ -1,7 +1,7 @@
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
   ctx.moveTo(0,0);
-//fix test
+
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
 
