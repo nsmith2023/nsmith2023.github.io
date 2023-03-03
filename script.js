@@ -76,7 +76,7 @@
       //myHand.push(unassigned[1]);
       //unassigned.splice(0,1);
 
-      if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<=21 ){
+      if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<=21 && blackjackState%2==0 ){
 
         myHand.push(unassigned[unassignedcount % unassigned.length]);
         unassignedcount++;
@@ -94,29 +94,34 @@
             myHand.splice(2);
             dealerHand.splice(2);
 
-            localStorage.setItem("credit", parseInt(credit)-minBet);
+            //localStorage.setItem("credit", parseInt(credit)-minBet);
           }
 
           if(blackjackState%2==0){
+            dealerMove(tallyCards(dealerHand));
 
             if(tallyCards(myHand) > tallyCards(dealerHand) && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
 
               localStorage.setItem("credit", parseInt(credit)+2*bet);
 
-            }else if(tallyCards(myHand) >= 21 && tallyCards(dealerHand) <= 21){
+            }  if(tallyCards(myHand) < tallyCards(dealerHand) && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
 
+                localStorage.setItem("credit", parseInt(credit)-bet);
 
-            }else if(tallyCards(myHand) <= 21 && tallyCards(dealerHand) >= 21){
-              localStorage.setItem("credit", parseInt(credit)+bet);
+            }else if(tallyCards(myHand) > 21 && tallyCards(dealerHand) <= 21){
+              localStorage.setItem("credit", parseInt(credit)-bet);
+
+            }else if(tallyCards(myHand) <= 21 && tallyCards(dealerHand) > 21){
+
 
             }else if(tallyCards(myHand) == tallyCards(dealerHand) && myHand.length < dealerHand.length){
                 localStorage.setItem("credit", parseInt(credit)+2*bet);
 
             }else if(tallyCards(myHand) == tallyCards(dealerHand) && dealerHand.length < myHand.length){
+              localStorage.setItem("credit", parseInt(credit)-bet);
 
             }else if(tallyCards(myHand) == tallyCards(dealerHand)){
 
-                localStorage.setItem("credit", parseInt(credit)+bet);
             }
 
 
@@ -447,8 +452,6 @@
         //edit to center cards
         myHand[p].drawCard(window.innerWidth/2+ (p-(myHand.length / 2))*card1.displayCardWidth, 3*window.innerHeight/4);
 
-
-
         //myTotal+= myHand[i].getValue();
 
       }
@@ -463,9 +466,9 @@
       ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, 3*window.innerHeight/6);
       ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
-      if(blackjackState%2==1){
-        dealerMove(dealerTotal);
-      }
+    //  if(blackjackState%2==1){
+      //  dealerMove(dealerTotal);
+      //}
 
 
 
@@ -540,7 +543,5 @@
       dealerHand.push(unassigned[unassignedcount % unassigned.length]);
       unassignedcount ++;
 
-
     }
-
   }
