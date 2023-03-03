@@ -648,7 +648,7 @@ if(blackjackState%3==0){
           ctx.fillText("You Lose", window.innerWidth/2-(ctx.measureText("You Lose").width)/2, window.innerHeight/2);
 
         }else if(wl=="tie"){
-          ctx.fillText("Tie", window.innerWidth/2-(ctx.measureText("Tie").width)/2, 2.5*window.innerHeight/2);
+          ctx.fillText("Tie", window.innerWidth/2-(ctx.measureText("Tie").width)/2, window.innerHeight/2);
         }
 
 
