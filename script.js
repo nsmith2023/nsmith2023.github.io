@@ -398,6 +398,8 @@ var item2 = new slotItem();
 
 var item3 = new slotItem();
 
+var demoItem = new slotItem();
+
 
 
 setInterval( loop, 33 );
@@ -464,15 +466,18 @@ function stateZero(){
 
   ctx.fillStyle = "#ead1dc";
   ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 1*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
+  ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 2.5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
+  ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 4*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
   homeCard.drawCard(window.innerWidth/2-homeCard.cardWidth/2, 1*window.innerHeight/6-homeCard.cardHeight/2);
+  demoItem.drawSlot(window.innerWidth/2-item1.slotWidth/2, 3.5*window.innerHeight/6-homeCard.cardHeight/2);
+
   if(frames%10==0){
     homeCard.resetCard();
+    demoItem.randomizeSlot();
   }
 
-  ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 2.5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
-  ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 4*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
 
 }
