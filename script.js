@@ -17,6 +17,8 @@ var blackjackState=0;
 
 var slotState=0;
 
+var wl= "none";
+
 
 if(window.innerWidth > window.innerHeight){
   buttonWidth =  window.innerWidth/5;
@@ -100,6 +102,8 @@ canvas.addEventListener("click", function(){
 
         else if(blackjackState%3==1){
 
+          //alert(blackjackState);
+
 
           dealerMove(tallyCards(dealerHand));
           dealerMove(tallyCards(dealerHand));
@@ -112,24 +116,36 @@ canvas.addEventListener("click", function(){
           if(tallyCards(myHand) > tallyCards(dealerHand) && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
 
             localStorage.setItem("credit", parseInt(credit)+2*bet);
+            wl="win";
+
 
           } else if(tallyCards(myHand) < tallyCards(dealerHand) && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
 
               localStorage.setItem("credit", parseInt(credit)-bet);
+              wl="lose";
+
 
           }else if(tallyCards(myHand) > 21 && tallyCards(dealerHand) <= 21){
             localStorage.setItem("credit", parseInt(credit)-bet);
+            wl="lose";
 
           }else if(tallyCards(myHand) <= 21 && tallyCards(dealerHand) > 21){
             localStorage.setItem("credit", parseInt(credit)+2*bet);
+            wl="win";
 
           }else if(tallyCards(myHand) == tallyCards(dealerHand) && myHand.length < dealerHand.length){
               localStorage.setItem("credit", parseInt(credit)+2*bet);
+              wl="win";
+
 
           }else if(tallyCards(myHand) == tallyCards(dealerHand) && dealerHand.length < myHand.length){
             localStorage.setItem("credit", parseInt(credit)-bet);
+            wl="lose";
+
 
           }else if(tallyCards(myHand) == tallyCards(dealerHand)){
+            wl="tie";
+
 
           }
 
@@ -604,10 +620,12 @@ if(blackjackState%3==0){
 
 
   }
+//alert(wl);
 
 }
 
     else if(blackjackState%3==1){
+      wl="none";
 
       ctx.fillText("End Turn", 3*window.innerWidth/4-(ctx.measureText("End Turn").width)/2,2* window.innerHeight/4);
       ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
@@ -618,11 +636,28 @@ if(blackjackState%3==0){
       ctx.fillText("Play Again", 3*window.innerWidth/4-(ctx.measureText("Play Again").width)/2,2* window.innerHeight/4);
       ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
+
+
+        if(wl=="win"){
+
+          ctx.fillText("You Win", window.innerWidth/2-(ctx.measureText("You Win").width)/2, window.innerHeight/2);
+
+        }else if(wl=="lose"){
+          ctx.fillText("You Lose", window.innerWidth/2-(ctx.measureText("You Lose").width)/2, window.innerHeight/2);
+
+        }else if(wl=="tie"){
+          ctx.fillText("Tie", window.innerWidth/2-(ctx.measureText("Tie").width)/2, 2.5*window.innerHeight/2);
+        }
+
+
+
+
     }
+  }
 
 
 
-}
+
 
 
 function stateTwo(){
