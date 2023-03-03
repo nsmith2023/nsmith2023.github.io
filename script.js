@@ -77,7 +77,7 @@ canvas.addEventListener("click", function(){
     //myHand.push(unassigned[1]);
     //unassigned.splice(0,1);
 
-    if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<=21 && blackjackState%2==0 && credit >= minBet){
+    if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<=21 && blackjackState%3==1 && credit >= minBet){
 
       myHand.push(unassigned[unassignedcount % unassigned.length]);
       unassignedcount++;
@@ -85,7 +85,7 @@ canvas.addEventListener("click", function(){
     }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= minBet ){
 
 
-      if(blackjackState%2==1){
+      if(blackjackState%3==2){
         for(let i = 0; i < allCards.length; i++){
 
           allCards[i].resetCard(i);
@@ -98,7 +98,7 @@ canvas.addEventListener("click", function(){
           //localStorage.setItem("credit", parseInt(credit)-minBet);
         }
 
-        if(blackjackState%2==0){
+        else if(blackjackState%3==1){
 
 
           dealerMove(tallyCards(dealerHand));
@@ -138,6 +138,7 @@ canvas.addEventListener("click", function(){
         }
 
         blackjackState++;
+
 
       }
 
@@ -530,6 +531,8 @@ function stateOne(){
 
 //draw dealer cards
 
+if(blackjackState%3 == 1 || blackjackState%3 == 2){
+
     for(let i = 0; i < dealerHand.length; i++){
 
       if(i==0){
@@ -557,7 +560,7 @@ function stateOne(){
       //myTotal+= myHand[i].getValue();
 
     }
-
+}
 
     var dealerTotal =tallyCards(dealerHand);
     var myTotal =tallyCards(myHand);
@@ -565,16 +568,45 @@ function stateOne(){
     ctx.fillStyle ="black";
     ctx.font = "30px Arial";
 
-    ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, 3*window.innerHeight/6);
+    //ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, 3*window.innerHeight/6);
     ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
 
-    if(blackjackState%2==0){
+if(blackjackState%3==0){
+  ctx.fillText("Start Game", 3*window.innerWidth/4-(ctx.measureText("Start Game").width)/2,2* window.innerHeight/4);
+
+  for(let y = 0; y < dealerHand.length; y++){
+
+    if(y==0){
+    //edit to center cards
+    dealerHand[y].drawBackside(window.innerWidth/2 + (y-(dealerHand.length / 2))*card1.displayCardWidth, window.innerHeight/4);
+
+    }else{
+      //edit to center cards
+
+      dealerHand[y].drawBackside(window.innerWidth/2 + (y-(dealerHand.length / 2))*card1.displayCardWidth, window.innerHeight/4);
+
+    }
+
+  }
+
+//loop through your cards
+  for(let z = 0; z < myHand.length; z++){
+    //edit to center cards
+    myHand[z].drawBackside(window.innerWidth/2+ (z-(myHand.length / 2))*card1.displayCardWidth, 3*window.innerHeight/4);
+
+
+
+  }
+
+}
+
+    else if(blackjackState%3==1){
 
       ctx.fillText("End Turn", 3*window.innerWidth/4-(ctx.measureText("End Turn").width)/2,2* window.innerHeight/4);
 
 
-    }else if(blackjackState%2==1){
+    }else if(blackjackState%3==2){
 
       ctx.fillText("Play Again", 3*window.innerWidth/4-(ctx.measureText("Play Again").width)/2,2* window.innerHeight/4);
 
@@ -650,8 +682,6 @@ function tallyCards(hand){
 function tallySlots(){
 
   var value = 0;
-
-
 
 
 
