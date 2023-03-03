@@ -146,7 +146,13 @@ canvas.addEventListener("click", function(){
 
   else if(state==2){
 
-    localStorage.setItem("state", 0);
+    if(event.clientY > 2.5*window.innerHeight/6-buttonHeight/2 && event.clientY < 2.5*window.innerHeight/6+buttonHeight/2){
+      localStorage.setItem("credit", parseInt(credit)+100);
+    }
+
+
+
+
   }
 
   else if(state==3){
@@ -619,7 +625,13 @@ if(blackjackState%3==0){
 
 function stateTwo(){
 
-  localStorage.setItem("credit", 100);
+
+    ctx.fillStyle = "#ead1dc";
+    ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 2.5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
+
+    ctx.fillStyle ="black";
+    ctx.fillText("Click for +100", window.innerWidth/2-(ctx.measureText("Click for +100").width)/2, 2.5*window.innerHeight/6);
+
 
 }
 
