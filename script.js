@@ -146,6 +146,8 @@ canvas.addEventListener("click", function(){
           }else if(tallyCards(myHand) == tallyCards(dealerHand)){
             wl="tie";
 
+          }else if(tallyCards(myHand) > 21 && tallyCards(dealerHand) > 21){
+              wl="tie";
 
           }
 
