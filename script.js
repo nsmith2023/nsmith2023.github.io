@@ -575,7 +575,7 @@ if(blackjackState%3 == 1 || blackjackState%3 == 2){
     ctx.font = "30px Arial";
 
     //ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, 3*window.innerHeight/6);
-    ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
+
 
 
 if(blackjackState%3==0){
@@ -610,11 +610,13 @@ if(blackjackState%3==0){
     else if(blackjackState%3==1){
 
       ctx.fillText("End Turn", 3*window.innerWidth/4-(ctx.measureText("End Turn").width)/2,2* window.innerHeight/4);
+      ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
 
     }else if(blackjackState%3==2){
 
       ctx.fillText("Play Again", 3*window.innerWidth/4-(ctx.measureText("Play Again").width)/2,2* window.innerHeight/4);
+      ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
     }
 
