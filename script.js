@@ -20,7 +20,7 @@ var slotState=0;
 
 if(window.innerWidth > window.innerHeight){
   buttonWidth =  window.innerWidth/5;
-  buttonHeight = 0.5*window.innerWidth/5;
+  buttonHeight = 0.55*window.innerWidth/5;
 }else{
   buttonWidth =  1.5*window.innerWidth/5;
   buttonHeight = window.innerWidth/5;
@@ -153,6 +153,9 @@ canvas.addEventListener("click", function(){
     if(event.clientY > 5*window.innerHeight/6-buttonHeight/2 && event.clientY < 5*window.innerHeight/6+buttonHeight/8 && event.clientX > 2*window.innerWidth/4-buttonWidth/2 && event.clientX < 2*window.innerWidth/4+buttonWidth/2){
 
       slotState++;
+      item1.randomizeSlot();
+      item2.randomizeSlot();
+      item3.randomizeSlot();
 
 
     }
@@ -352,7 +355,7 @@ class slotItem {
     this.slots = new Image();
     this.slots.src= "slotsSprite.png";
     this.slotNumberImages = 8;
-    this.slotWidth =109;
+    this.slotWidth =110;
     this.slotHeight= 139;
     this.slotPositionX = Math.trunc(Math.random()*8)*this.slotWidth;
 
@@ -399,6 +402,30 @@ var item2 = new slotItem();
 var item3 = new slotItem();
 
 var demoItem = new slotItem();
+
+
+class Coin {
+
+  constructor(){
+    this.coin=new Image();
+    this.coin.src = "coin.png";
+    this.numbImages=6;
+    this.imageWidth=85;
+    this.imageHeight=150;
+    this.currImage = 0;
+
+  }
+
+
+  draw(x,y){
+
+    ctx.drawImage( this.coin, this.currImage*this.imageWidth , 0, this.imageWidth, this.imageHeight,x, y, this.imageWidth, this.imageHeight );
+    this.currImage++;
+    this.currImage %= this.numbImages;
+  }
+}
+
+var coin = new Coin();
 
 
 
@@ -469,8 +496,10 @@ function stateZero(){
   ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 2.5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
   ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 4*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight);
 
-  homeCard.drawCard(window.innerWidth/2-homeCard.cardWidth/2, 1*window.innerHeight/6-homeCard.cardHeight/2);
-  demoItem.drawSlot(window.innerWidth/2-item1.slotWidth/2, 3.5*window.innerHeight/6-homeCard.cardHeight/2);
+  homeCard.drawCard(window.innerWidth/2-homeCard.cardWidth/2, 1*window.innerHeight/6-9*homeCard.cardHeight/16);
+  demoItem.drawSlot(window.innerWidth/2-9*item1.slotWidth/16, 3.5*window.innerHeight/6-9*homeCard.cardHeight/16);
+  coin.draw(2*window.innerWidth/4-coin.imageWidth/2, 2.75*window.innerHeight/6-coin.imageHeight/2);
+  ctx.fillStyle = "#ead1dc";
 
   if(frames%10==0){
     homeCard.resetCard();
@@ -490,6 +519,10 @@ function stateOne(){
     ctx.fillRect(3*window.innerWidth/4-buttonWidth/2, 2* window.innerHeight/4-buttonHeight/2,buttonWidth,buttonHeight);
 
     ctx.drawImage(blackjackTitle,window.innerWidth/2-225,window.innerHeight/10-100,450,250);
+
+    ctx.fillStyle = "black";
+    ctx.fillText("Hit", 1*window.innerWidth/4-(ctx.measureText("Hit").width)/2,2* window.innerHeight/4);
+
 
 
     //var dealerTotal =0;
@@ -535,11 +568,15 @@ function stateOne(){
     ctx.fillText("Count: " + dealerTotal, window.innerWidth/2-(ctx.measureText("Count: " + dealerTotal).width)/2, 3*window.innerHeight/6);
     ctx.fillText("Count: " + myTotal, window.innerWidth/2-(ctx.measureText("Count: " + myTotal).width)/2, 4.25*window.innerHeight/6);
 
-    if(blackjackState%2==1){
+
+    if(blackjackState%2==0){
+
+      ctx.fillText("End Turn", 3*window.innerWidth/4-(ctx.measureText("End Turn").width)/2,2* window.innerHeight/4);
 
 
+    }else if(blackjackState%2==1){
 
-    }else if(blackjackState%2==0){
+      ctx.fillText("Play Again", 3*window.innerWidth/4-(ctx.measureText("Play Again").width)/2,2* window.innerHeight/4);
 
     }
 
@@ -566,7 +603,7 @@ function stateThree(){
   item3.drawSlot(3*window.innerWidth/4-item1.slotWidth,window.innerHeight/3);
 
 
-if(slotState%2==0 && frames%5==0){
+if(slotState%2==0 && frames%7==0){
   item1.randomizeSlot();
   item2.randomizeSlot();
   item3.randomizeSlot();
@@ -578,27 +615,8 @@ if(slotState%2==0 && frames%5==0){
 }
 
 
-/*
-function drawAnimatedSprite(spriteSheet, numbImages, imageWidth, imageHeight, x, y) {
-  this.spriteSheet=spriteSheet;
-  this.numbImages=numbImages;
-  this.imageWidth=imageWidth;
-  this.imageHeight=imageHeight;
-  this.x=x;
-  this.y=y;
-  console.log(this.spriteSheet);
-  this.currImage = 0;
 
-  this.draw = function(){
 
-    alert("please god help");
-    ctx.drawImage( this.spriteSheet, this.currImage*this.imageWidth , 0, this.imageWidth, this.imageHeight,this.x, this.y, this.imageWidth, this.imageHeight );
-    this.currImage++;
-    this.currImage %= this.numbImages;
-  }
-}
-
-*/
 
 function tallyCards(hand){
   var value = 0;
