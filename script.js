@@ -597,6 +597,11 @@ function stateThree(){
 
   ctx.fillStyle = "#ead1dc";
   ctx.fillRect(2*window.innerWidth/4-buttonWidth/2, 5*window.innerHeight/6-buttonHeight/2,buttonWidth,buttonHeight/2);
+  ctx.fillRect(0, 2.5*window.innerHeight/6-buttonHeight/2,window.innerWidth,1.5*buttonHeight);
+
+  ctx.fillStyle ="black";
+  ctx.fillText("Press", window.innerWidth/2-(ctx.measureText("Press").width)/2, 4.75*window.innerHeight/6);
+
 
   item1.drawSlot(1*window.innerWidth/4-item1.slotWidth,window.innerHeight/3);
   item2.drawSlot(2*window.innerWidth/4-item1.slotWidth,window.innerHeight/3);
