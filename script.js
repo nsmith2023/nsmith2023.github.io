@@ -133,12 +133,12 @@ canvas.addEventListener("click", function(){
             localStorage.setItem("credit", parseInt(credit)+2*bet);
             wl="win";
 
-          }else if(tallyCards(myHand) == tallyCards(dealerHand) && myHand.length < dealerHand.length){
+          }else if(tallyCards(myHand) == tallyCards(dealerHand) && myHand.length < dealerHand.length && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
               localStorage.setItem("credit", parseInt(credit)+2*bet);
               wl="win";
 
 
-          }else if(tallyCards(myHand) == tallyCards(dealerHand) && dealerHand.length < myHand.length){
+          }else if(tallyCards(myHand) == tallyCards(dealerHand) && dealerHand.length < myHand.length && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
             localStorage.setItem("credit", parseInt(credit)-bet);
             wl="lose";
 
