@@ -2,6 +2,7 @@
   var ctx = canvas.getContext("2d");
   ctx.moveTo(0,0);
   //edits
+  //more edits
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
 
