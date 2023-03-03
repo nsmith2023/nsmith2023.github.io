@@ -635,9 +635,9 @@ function stateThree(){
   ctx.fillText("Press", window.innerWidth/2-(ctx.measureText("Press").width)/2, 4.75*window.innerHeight/6);
 
 
-  item1.drawSlot(1*window.innerWidth/4-item1.slotWidth,window.innerHeight/3);
-  item2.drawSlot(2*window.innerWidth/4-item1.slotWidth,window.innerHeight/3);
-  item3.drawSlot(3*window.innerWidth/4-item1.slotWidth,window.innerHeight/3);
+  item1.drawSlot(1*window.innerWidth/4-item1.slotWidth/2,window.innerHeight/3);
+  item2.drawSlot(2*window.innerWidth/4-item1.slotWidth/2,window.innerHeight/3);
+  item3.drawSlot(3*window.innerWidth/4-item1.slotWidth/2,window.innerHeight/3);
 
 
 if(slotState%2==0 && frames%7==0){
