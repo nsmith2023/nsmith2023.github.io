@@ -96,13 +96,13 @@ canvas.addEventListener("click", function(){
 
         }
 
-        for(let i = 0; i < allCards.length; i++){
+        for(let q = 0; q < allCards.length; q++){
 
           for(let c = 0; c < allCards.length; c++){
 
-            if(c!=i){
-                while( allCards[i].cardPositionX==allCards[c].cardPositionX && allCards[i].cardPositionY==allCards[c].cardPositionY ){
-                    allCards[i].resetCard();
+            if(c!=q){
+                while( allCards[q].cardPositionX==allCards[c].cardPositionX && allCards[q].cardPositionY==allCards[c].cardPositionY ){
+                    allCards[q].resetCard();
                 }
 
 
@@ -139,7 +139,7 @@ canvas.addEventListener("click", function(){
 
           if(tallyCards(myHand) > tallyCards(dealerHand) && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
 
-            localStorage.setItem("credit", parseInt(credit)+2*bet);
+            localStorage.setItem("credit", parseInt(credit)+bet);
             wl="win";
 
 
@@ -154,11 +154,11 @@ canvas.addEventListener("click", function(){
             wl="lose";
 
           }else if(tallyCards(myHand) <= 21 && tallyCards(dealerHand) > 21){
-            localStorage.setItem("credit", parseInt(credit)+2*bet);
+            localStorage.setItem("credit", parseInt(credit)+bet);
             wl="win";
 
           }else if(tallyCards(myHand) == tallyCards(dealerHand) && myHand.length < dealerHand.length && tallyCards(myHand) <= 21 && tallyCards(dealerHand) <= 21 ){
-              localStorage.setItem("credit", parseInt(credit)+2*bet);
+              localStorage.setItem("credit", parseInt(credit)+bet);
               wl="win";
 
 
@@ -180,6 +180,7 @@ canvas.addEventListener("click", function(){
         }
 
         blackjackState++;
+        console.log(blackjackState);
 
 
       }
@@ -205,6 +206,11 @@ canvas.addEventListener("click", function(){
       item1.randomizeSlot();
       item2.randomizeSlot();
       item3.randomizeSlot();
+
+      if(slotState%2==1){
+        localStorage.setItem("credit", parseInt(credit)-bet);
+      }
+
 
 
     }
@@ -388,15 +394,18 @@ allCards.push(card10);
 
 var homeCard = new Card();
 
+
 class slotItem {
 
-  constructor(){
+  constructor(slotWheel){
     this.slots = new Image();
     this.slots.src= "slotsSprite.png";
     this.slotNumberImages = 8;
     this.slotWidth =110;
     this.slotHeight= 139;
-    this.slotPositionX = Math.trunc(Math.random()*8)*this.slotWidth;
+    this.randomValue = Math.trunc(Math.random()*40);
+    this.slotPositionX= Math.trunc(Math.random()*8);
+    this.slotWheel=slotWheel;
 
     if(window.innerWidth > window.innerHeight){
       this.displaySlotWidth = 1.5*this.slotWidth;
@@ -408,18 +417,117 @@ class slotItem {
   }
 
   drawSlot(x,y){
+    var multiplier;
     if(window.innerWidth > window.innerHeight){
-      ctx.drawImage( this.slots, this.slotPositionX , 0, this.slotWidth, this.slotHeight ,x,y, 1.5*this.slotWidth, 1.5*this.slotHeight );
+      multiplier=1.5;
 
     }else{
-      ctx.drawImage( this.slots, this.slotPositionX , 0, this.slotWidth, this.slotHeight ,x,y, 2*this.slotWidth, 2*this.slotHeight );
+      multiplier=2;
 
     }
+
+      console.log(this.slotPositionX);
+      console.log(this.randomValue);
+      ctx.drawImage( this.slots, this.slotPositionX*this.slotWidth , 0, this.slotWidth, this.slotHeight ,x,y, multiplier*this.slotWidth, multiplier*this.slotHeight );
 
   }
 
   randomizeSlot(){
-    this.slotPositionX = Math.trunc(Math.random()*8)*this.slotWidth;
+    this.randomValue = Math.trunc(Math.random()*40);
+    //this.slotPositionX=5;
+
+
+
+
+    if(this.slotWheel==1){
+
+      if(this.randomValue<9){
+        this.slotPositionX=1;
+
+      }else if(this.randomValue == 9){
+        this.slotPositionX=2;
+
+      }else if(this.randomValue == 10){
+        this.slotPositionX=4;
+
+      }else if(this.randomValue == 11){
+        this.slotPositionX=0;
+
+      }else if(this.randomValue<38){
+          this.slotPositionX=5;
+
+      }else if(this.randomValue==38){
+        this.slotPositionX=6;
+      }else if(this.randomValue==39){
+        this.slotPositionX=7;
+      }
+
+
+
+
+
+    }else if(this.slotWheel==2){
+
+      if(this.randomValue==0){
+        this.slotPositionX=1;
+
+      }else if(this.randomValue <16){
+        this.slotPositionX=2;
+
+      }else if(this.randomValue == 16){
+        this.slotPositionX=4;
+
+      }else if(this.randomValue < 37){
+        this.slotPositionX=0;
+
+
+      }else if(this.randomValue==37){
+          this.slotPositionX=5;
+
+      }else if(this.randomValue==38){
+        this.slotPositionX=6;
+      }else if(this.randomValue==39){
+        this.slotPositionX=7;
+      }
+
+
+
+
+
+
+    }else if(this.slotWheel==3){
+
+      if(this.randomValue < 3){
+        this.slotPositionX=1;
+
+      }else if(this.randomValue <13){
+        this.slotPositionX=2;
+
+      }else if(this.randomValue <27){
+        this.slotPositionX=4;
+
+      }else if(this.randomValue <37){
+        this.slotPositionX=0;
+
+      }else if(this.randomValue==37){
+          this.slotPositionX=5;
+
+      }else if(this.randomValue==38){
+        this.slotPositionX=6;
+      }else if(this.randomValue==39){
+        this.slotPositionX=7;
+      }
+
+
+
+    }else if(this.slotWheel==4){
+      this.slotPositionX= Math.trunc(Math.random()*8);
+
+    }
+
+
+
+
 
   }
 
@@ -434,13 +542,13 @@ class slotItem {
 
 }
 
-var item1 = new slotItem();
+var item1 = new slotItem(1);
 
-var item2 = new slotItem();
+var item2 = new slotItem(2);
 
-var item3 = new slotItem();
+var item3 = new slotItem(3);
 
-var demoItem = new slotItem();
+var demoItem = new slotItem(4);
 
 
 class Coin {
@@ -584,7 +692,7 @@ if(blackjackState%3 == 1 || blackjackState%3 == 2){
 
     for(let i = 0; i < dealerHand.length; i++){
 
-      if(i==0){
+      if(i==0 && blackjackState%3 ==1){
       //edit to center cards
       dealerHand[i].drawBackside(window.innerWidth/2 + (i-(dealerHand.length / 2))*card1.displayCardWidth, window.innerHeight/4);
       //dealerHand[i].drawCard(window.innerWidth/2-card1.cardWidth*1.5, window.innerHeight/4);
@@ -711,16 +819,18 @@ function stateThree(){
   ctx.fillText("Press", window.innerWidth/2-(ctx.measureText("Press").width)/2, 4.75*window.innerHeight/6);
 
 
+  if(slotState%2==0 && frames%7==0){
+    item1.randomizeSlot();
+    item2.randomizeSlot();
+    item3.randomizeSlot();
+  }
+
+
   item1.drawSlot(1*window.innerWidth/4-item1.slotWidth/2,window.innerHeight/3);
   item2.drawSlot(2*window.innerWidth/4-item1.slotWidth/2,window.innerHeight/3);
   item3.drawSlot(3*window.innerWidth/4-item1.slotWidth/2,window.innerHeight/3);
 
 
-if(slotState%2==0 && frames%7==0){
-  item1.randomizeSlot();
-  item2.randomizeSlot();
-  item3.randomizeSlot();
-}
 
 
 
