@@ -83,7 +83,7 @@ canvas.addEventListener("click", function(){
 
       myHand.push(unassigned[unassignedcount % unassigned.length]);
       unassignedcount++;
-      console.log(unassignedcount);
+      //console.log(unassignedcount);
 
     }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= minBet ){
 
@@ -180,7 +180,7 @@ canvas.addEventListener("click", function(){
         }
 
         blackjackState++;
-        console.log(blackjackState);
+        //console.log(blackjackState);
 
 
       }
@@ -208,7 +208,88 @@ canvas.addEventListener("click", function(){
       item3.randomizeSlot();
 
       if(slotState%2==1){
-        localStorage.setItem("credit", parseInt(credit)-bet);
+
+        var cherryCount=0;
+        var grapeCount=0;
+        var goldCount=0;
+        var bellCount=0;
+        var singleBar=0;
+        var doubleBar=0;
+        var tripleBar=0;
+        var barCount=0;
+
+
+
+        for(let o=0; o<slotArray.length; o++){
+          //console.log(slotArray);
+
+          if(slotArray[o].slotPositionX==0){
+            bellCount++;
+
+          }else if(slotArray[o].slotPositionX==1){
+            cherryCount++;
+
+          }else if(slotArray[o].slotPositionX==2){
+            grapeCount++;
+
+          }else if(slotArray[o].slotPositionX==4){
+            goldCount++;
+
+          }else if(slotArray[o].slotPositionX==5){
+            singleBar++;
+            barCount++;
+
+          }else if(slotArray[o].slotPositionX==6){
+            doubleBar++;
+            barCount++;
+
+          }else if(slotArray[o].slotPositionX==7){
+            tripleBar++;
+            barCount++;
+
+          }
+
+        }
+
+        if(cherryCount==1){
+          localStorage.setItem("credit", parseInt(credit)+2*bet);
+
+        }else if(cherryCount==2){
+          localStorage.setItem("credit", parseInt(credit)+5*bet);
+
+        }else if(cherryCount==3){
+          localStorage.setItem("credit", parseInt(credit)+10*bet);
+
+        }else if(grapeCount==3){
+          localStorage.setItem("credit", parseInt(credit)+15*bet);
+
+        }else if(goldCount==3){
+          localStorage.setItem("credit", parseInt(credit)+20*bet);
+
+        }else if(bellCount==3){
+          localStorage.setItem("credit", parseInt(credit)+30*bet);
+
+        }else if(barCount==3){
+          localStorage.setItem("credit", parseInt(credit)+30*bet);
+
+        }else if(singleBar==3){
+          localStorage.setItem("credit", parseInt(credit)+50*bet);
+
+        }else if(doubleBar==3){
+          localStorage.setItem("credit", parseInt(credit)+100*bet);
+
+        }else if(tripleBar==3){
+          localStorage.setItem("credit", parseInt(credit)+200*bet);
+
+        }else{
+          localStorage.setItem("credit", parseInt(credit)-bet);
+
+        }
+
+
+        console.log(cherryCount);
+
+
       }
 
 
@@ -426,8 +507,8 @@ class slotItem {
 
     }
 
-      console.log(this.slotPositionX);
-      console.log(this.randomValue);
+      //console.log(this.slotPositionX);
+      //console.log(this.randomValue);
       ctx.drawImage( this.slots, this.slotPositionX*this.slotWidth , 0, this.slotWidth, this.slotHeight ,x,y, multiplier*this.slotWidth, multiplier*this.slotHeight );
 
   }
@@ -542,11 +623,16 @@ class slotItem {
 
 }
 
+const slotArray= [""];
+
 var item1 = new slotItem(1);
+slotArray[0]=item1;
 
 var item2 = new slotItem(2);
+slotArray.push(item2);
 
 var item3 = new slotItem(3);
+slotArray.push(item3);
 
 var demoItem = new slotItem(4);
 
