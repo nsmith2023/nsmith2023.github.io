@@ -40,7 +40,7 @@ backButton.src= "backButton.png";
 var credit = localStorage.getItem( "credit" );
 
 if( credit == undefined ) {
-localStorage.setItem( "credit", 0);
+localStorage.setItem( "credit", 100);
 }
 
 
