@@ -10,7 +10,7 @@ var buttonWidth;
 var buttonHeight;
 
 var frames=0;
-var minBet=5;
+var minBet=10;
 var bet=minBet;
 
 var blackjackState=0;
@@ -79,7 +79,7 @@ canvas.addEventListener("click", function(){
     //myHand.push(unassigned[1]);
     //unassigned.splice(0,1);
 
-    if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<=21 && blackjackState%3==1 && credit >= minBet){
+    if(event.clientX > 1*window.innerWidth/4-buttonWidth/2 && event.clientX < 1*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && tallyCards(myHand)<21 && blackjackState%3==1 && credit >= minBet){
 
       myHand.push(unassigned[unassignedcount % unassigned.length]);
       unassignedcount++;
@@ -122,11 +122,13 @@ canvas.addEventListener("click", function(){
           //localStorage.setItem("credit", parseInt(credit)-minBet);
         }
 
+
         else if(blackjackState%3==1){
 
           //alert(blackjackState);
 
 
+          dealerMove(tallyCards(dealerHand));
           dealerMove(tallyCards(dealerHand));
           dealerMove(tallyCards(dealerHand));
           dealerMove(tallyCards(dealerHand));
