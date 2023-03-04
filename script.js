@@ -83,16 +83,38 @@ canvas.addEventListener("click", function(){
 
       myHand.push(unassigned[unassignedcount % unassigned.length]);
       unassignedcount++;
+      console.log(unassignedcount);
 
     }else if(event.clientX > 3*window.innerWidth/4-buttonWidth/2 && event.clientX < 3*window.innerWidth/4+buttonWidth/2 && event.clientY > 2* window.innerHeight/4-buttonHeight/2 && event.clientY < 2* window.innerHeight/4+buttonHeight/2 && credit >= minBet ){
 
 
       if(blackjackState%3==2){
+
         for(let i = 0; i < allCards.length; i++){
 
-          allCards[i].resetCard(i);
+          allCards[i].resetCard();
+
+        }
+
+        for(let i = 0; i < allCards.length; i++){
+
+          for(let c = 0; c < allCards.length; c++){
+
+            if(c!=i){
+                while( allCards[i].cardPositionX==allCards[c].cardPositionX && allCards[i].cardPositionY==allCards[c].cardPositionY ){
+                    allCards[i].resetCard();
+                }
+
+
+            }
+
+
 
           }
+
+
+
+        }
 
           myHand.splice(2);
           dealerHand.splice(2);
@@ -304,25 +326,15 @@ class Card{
 
   }
 
-  resetCard(index){
+  resetCard(){
 
-    for(let i = 0; i < allCards.length; i++){
-
-      //alert(index);
       this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
       this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
 
-      if(index != i){
-       while(this.cardPositionX == allCards[i].cardPositionX && this.cardPositionY==allCards[i].cardPositionY){
 
-          this.cardPositionX = Math.trunc(Math.random()*13)*this.cardWidth;
-          this.cardPositionY = Math.trunc(Math.random()*4)*this.cardHeight;
-
-        }
-      }
     }
 
-  }
+
 
 }
 
@@ -530,6 +542,17 @@ function stateZero(){
     homeCard.resetCard();
     demoItem.randomizeSlot();
   }
+
+
+/*
+  for(let p = 0; p < allCards.length; p++){
+    //edit to center cards
+    allCards[p].drawCard(window.innerWidth/2+ (p-(allCards.length / 2))*card1.displayCardWidth, 3*window.innerHeight/4);
+
+    //myTotal+= myHand[i].getValue();
+
+  }
+  */
 
 
 
